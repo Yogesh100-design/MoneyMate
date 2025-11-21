@@ -11,7 +11,7 @@ const app = express();
 // Allowed frontend URLs
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://moneymate-1-cacl.onrender.com/"
+  "https://moneymate-1-cacl.onrender.com"
 ];
 
 // CORS Setup
