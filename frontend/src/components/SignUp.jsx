@@ -19,7 +19,7 @@ const SignUp = () => {
     setLoading(true);
     setMessage(null);
 
-    const apiUrl = "http://localhost:5000/api/v1/user/Register";
+    const apiUrl = "https://moneymate-2fsn.onrender.com/api/v1/user/Register";
 
     try {
       const response = await fetch(apiUrl, {

@@ -24,7 +24,7 @@ const ExpenseContainerFullScreen = () => {
 
     setIsLoading(true);
 
-    fetch("http://localhost:5000/api/v1/user/getAllExpence", {
+    fetch("https://moneymate-2fsn.onrender.com/api/v1/user/getAllExpence", {
       method: "GET",
       credentials: "include",
       headers: {
@@ -62,7 +62,7 @@ const ExpenseContainerFullScreen = () => {
 
     const accessToken = localStorage.getItem("accessToken");
 
-    fetch("http://localhost:5000/api/v1/user/expence", {
+    fetch("https://moneymate-2fsn.onrender.com/api/v1/user/expence", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -91,7 +91,7 @@ const ExpenseContainerFullScreen = () => {
   const handleDelete = (id) => {
     const accessToken = localStorage.getItem("accessToken");
 
-    fetch(`http://localhost:5000/api/v1/user/deleteExpence/${id}`, {
+    fetch(`https://moneymate-2fsn.onrender.com/api/v1/user/deleteExpence/${id}`, {
       method: "POST",
       credentials: "include",
       headers: {

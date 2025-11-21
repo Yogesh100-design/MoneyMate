@@ -2,16 +2,27 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import userRouter from "./routes/user.routes.js";
-import cookieParser from 'cookie-parser';
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
 const app = express();
 
-// Enable CORS for frontend (React app)
+// Allowed origins (frontend URLs)
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://moneymate-y.netlify.app/"  
+];
+
 app.use(cors({
-  origin: "http://localhost:5173", // React app URL
-  credentials: true                // allow cookies/auth headers
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
 }));
 
 // Middleware
@@ -21,7 +32,7 @@ app.use(cookieParser());
 // Routes
 app.use("/api/v1/user", userRouter);
 
-// Sample route
+// Test route
 app.get("/", (req, res) => {
   res.send("Server is running ✅");
 });
