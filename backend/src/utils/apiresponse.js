@@ -1,8 +1,9 @@
 class ApiResponce {
-    constructor(statusCode, message, data = "success") {
+    // Standard Order: statusCode, DATA, message
+    constructor(statusCode, data, message = "Success") {
         this.statusCode = statusCode;
-        this.message = message;
-        this.data = data; // ✅ FIXED HERE
+        this.data = data;       // Assign data to data
+        this.message = message; // Assign message to message
         this.success = statusCode < 400;
     }
 }
