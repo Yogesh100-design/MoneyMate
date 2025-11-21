@@ -11,8 +11,7 @@ const app = express();
 // Allowed frontend URLs
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://moneymate-y.netlify.app",
-  "https://moneymate-2fsn.onrender.com"
+  "https://moneymate-y.netlify.app"
 ];
 
 // CORS Setup
