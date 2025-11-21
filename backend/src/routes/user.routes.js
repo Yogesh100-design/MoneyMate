@@ -1,23 +1,24 @@
 import express from "express";
 import { registerUser } from "../controllers/register.controller.js";
 import loginUser from "../controllers/login.controller.js";
-import {expenseController,getAllExpence,deleteExpence,updateExpense} from "../controllers/expence.controller.js";
-import protect from "../middlewares/user.middlewares.js"
+import { 
+  expenseController,
+  getAllExpence,
+  deleteExpence,
+  updateExpense 
+} from "../controllers/expence.controller.js";
+import protect from "../middlewares/user.middlewares.js";
 
 const router = express.Router();
 
-// POST /api/auth/register
+// Auth Routes
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 
-
-router.post("/expence",protect , expenseController);
-router.get("/getAllExpence",protect , getAllExpence);
-router.post("/deleteExpence/:id",protect ,deleteExpence);
-router.post("/deleteExpence/:id",protect ,updateExpense);
-
-
-
-
+// Expense Routes
+router.post("/expense", protect, expenseController);       // Add expense
+router.get("/expenses", protect, getAllExpence);            // Get all expenses
+router.delete("/expense/:id", protect, deleteExpence);      // Delete expense
+router.put("/expense/:id", protect, updateExpense);         // Update expense
 
 export default router;
