@@ -26,7 +26,7 @@ const expenseController = asyncHandler(async (req, res) => {
   await expense.save();
 
   res.status(201).json(
-    new ApiResponce(200, expense, "Expense saved successfully !!")
+    new ApiResponce(201, expense, "Expense saved successfully !!")
   );
 });
 
