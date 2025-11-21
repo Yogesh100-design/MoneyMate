@@ -13,14 +13,16 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Name, password, and email are required");
   }
 
+  // Check if user exists
   const userAlreadyExist = await Register.findOne({ email });
-
   if (userAlreadyExist) {
     throw new ApiError(400, "User already exists!!");
   }
 
+  // Hash password
   const hashedPassword = await bcrypt.hash(password, 10);
 
+  // Create user
   const user = await Register.create({
     name,
     email,
@@ -28,34 +30,38 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   // Generate tokens
-  const { accessToken, refreshToken } = user.generateAccessTokenAndRefreshToken();
+  const { accessToken, refreshToken } =
+    await user.generateAccessTokenAndRefreshToken();
 
-  // Save refresh token in DB for future validation/revocation
+  // Save refresh token in DB
   user.refreshToken = refreshToken;
   await user.save({ validateBeforeSave: false });
 
-  // Send refresh token in HttpOnly cookie (more secure)
-  res.cookie("refreshToken", refreshToken, {
+  // Cookie options for Netlify + Render
+  const cookieOptions = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production", // true in prod
-    sameSite: "strict",
-    maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-  });
+    secure: true,        // required for Render HTTPS
+    sameSite: "None",    // required for cross-origin cookies
+    path: "/",           
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  };
 
-  // Send access token in response body
-  res.status(201).json(
+  // Set refresh token cookie
+  res.cookie("refreshToken", refreshToken, cookieOptions);
+
+  // Send response
+  return res.status(201).json(
     new ApiResponse(
-  200,
-  "Login successful",   // message
-  {                     // data
-    id: user._id,
-    name: user.name,
-    email: user.email,
-    accessToken,
-    refreshToken,
-  }
-)
-
+      201,
+      "User registered successfully",
+      {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        accessToken,
+        refreshToken,
+      }
+    )
   );
 });
 

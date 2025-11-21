@@ -8,12 +8,14 @@ dotenv.config();
 
 const app = express();
 
-// Allowed origins (frontend URLs)
+// Allowed frontend URLs
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://moneymate-y.netlify.app/"  
+  "https://moneymate-y.netlify.app",
+  "https://moneymate-2fsn.onrender.com"
 ];
 
+// CORS Setup
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -22,8 +24,13 @@ app.use(cors({
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+// Fix for preflight requests
+app.options("*", cors());
 
 // Middleware
 app.use(express.json());
