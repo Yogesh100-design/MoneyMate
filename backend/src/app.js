@@ -29,8 +29,8 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// Fix for preflight requests
-app.options("*", cors());
+// Fix for preflight (Express v5 safe)
+app.options("/**", cors());
 
 // Middleware
 app.use(express.json());
