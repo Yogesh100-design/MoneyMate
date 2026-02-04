@@ -128,7 +128,11 @@ const ExpenseContainerFullScreen = () => {
       <div className="bg-gradient-to-r from-red-500 via-pink-500 to-rose-400 p-6 md:p-8 text-center rounded-2xl mb-6 relative overflow-hidden">
         <div className="absolute inset-0 bg-white/10 mix-blend-overlay"></div>
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-2 relative">💰 Expense Tracker</h2>
-        <p className="text-white/90 text-sm md:text-base relative">Track your spending with passion</p>
+        <p className="text-white/90 text-sm md:text-base relative mb-6">Track your spending with passion</p>
+        
+        <a href="/budget" className="relative inline-block px-8 py-3 bg-white text-red-500 font-bold rounded-full shadow-lg hover:bg-gray-100 transition transform hover:-translate-y-1">
+           📅 Go to Budget Planner
+        </a>
       </div>
 
       {/* STATS */}

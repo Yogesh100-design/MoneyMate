@@ -82,6 +82,28 @@ const BudgetPlanner = () => {
           setMessage({ type: "error", text: "Error saving budget" });
       }
   };
+
+  const handleAutoAllocate = () => {
+      if (!totalBudget) return;
+      // 50% Needs, 30% Wants, 20% Savings/Other
+      const needs = totalBudget * 0.50;
+      const wants = totalBudget * 0.30;
+      const savings = totalBudget * 0.20;
+
+      // Distribute broadly (Customize as needed)
+      const newAllocations = categories.map(cat => {
+          let amt = 0;
+          if (['food', 'utilities', 'transport'].includes(cat.value)) {
+              amt = needs / 3; // Split needs
+          } else if (['entertainment', 'shopping'].includes(cat.value)) {
+              amt = wants / 2; // Split wants
+          } else {
+              amt = savings; // Remainder
+          }
+          return { category: cat.value, amount: Math.floor(amt) };
+      });
+      setAllocations(newAllocations);
+  };
   
   const totalAllocated = allocations.reduce((sum, a) => sum + (a.amount || 0), 0);
   const remaining = totalBudget - totalAllocated;
@@ -105,9 +127,17 @@ const BudgetPlanner = () => {
               {/* Left Column: Inputs */}
               <div className="md:col-span-2 space-y-6">
                   
-                  {/* Total Budget Card */}
                   <div className="bg-white p-6 rounded-2xl shadow-sm border border-indigo-100">
-                      <h3 className="text-lg font-semibold text-gray-800 mb-4">💰 Total Monthly Budget</h3>
+                      <div className="flex justify-between items-center mb-4">
+                          <h3 className="text-lg font-semibold text-gray-800">💰 Total Monthly Budget</h3>
+                          <button 
+                              onClick={handleAutoAllocate}
+                              className="text-xs bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full hover:bg-indigo-200 transition"
+                              title="Apply 50/30/20 Rule"
+                          >
+                              Auto-Split (50/30/20)
+                          </button>
+                      </div>
                       <input 
                         type="number" 
                         value={totalBudget}
