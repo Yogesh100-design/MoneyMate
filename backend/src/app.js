@@ -12,7 +12,6 @@ const allowedOrigins = [
   "https://moneymate-1-cacl.onrender.com"
 ];
 
-// Manual CORS Middleware to guarantee control
 app.use((req, res, next) => {
   const origin = req.headers.origin;
   
