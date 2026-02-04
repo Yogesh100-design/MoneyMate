@@ -55,6 +55,11 @@ const Navbar = () => {
                   About
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link fw-semibold px-3" to="/budget">
+                  Budget Planner
+                </Link>
+              </li>
             </ul>
 
             {/* Auth Section - Conditionally rendered */}

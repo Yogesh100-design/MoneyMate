@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const SignUp = () => {
     setLoading(true);
     setMessage(null);
 
-    const apiUrl = "https://moneymate-2fsn.onrender.com/api/v1/user/Register";
+    const apiUrl = `${API_BASE_URL}/Register`;
 
     try {
       const response = await fetch(apiUrl, {
@@ -32,7 +33,9 @@ const SignUp = () => {
 
       // ------------------ SUCCESS ------------------
       if (response.ok) {
-        localStorage.setItem("token", data.authToken || "");
+        if (data?.data?.accessToken) {
+          localStorage.setItem("accessToken", data.data.accessToken);
+        }
 
         setCredentials({ name: "", email: "", password: "" });
 
@@ -41,7 +44,7 @@ const SignUp = () => {
           text: `Signup successful! Welcome, ${name}. Redirecting...`,
         });
 
-        setTimeout(() => navigate("/login"), 1500);
+        setTimeout(() => navigate("/dashboard"), 1500);
       } 
       
       // ------------------ ERRORS ------------------

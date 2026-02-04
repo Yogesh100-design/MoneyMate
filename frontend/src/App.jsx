@@ -7,6 +7,7 @@ import Login from './components/Login.jsx';
 import ProtectedRoute from './components/Protectedroute.jsx';
 import ExpenseTrackerLanding from './components/landingpage.jsx';
 import AboutPage from './components/about.jsx';
+import BudgetPlanner from './components/BudgetPlanner.jsx';
 
 function App() {
   const location = useLocation();
@@ -29,6 +30,11 @@ function App() {
         <Route path="/dashboard" element={ 
           <ProtectedRoute> 
             <ExpenseContainer/> 
+          </ProtectedRoute>  
+        } />
+        <Route path="/budget" element={ 
+          <ProtectedRoute> 
+            <BudgetPlanner/> 
           </ProtectedRoute>  
         } />
       </Routes>

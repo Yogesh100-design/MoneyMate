@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ExpenseCard from "./ExpenseCard";
+import { API_BASE_URL } from "../config";
 
 const ExpenseContainerFullScreen = () => {
   const [expenses, setExpenses] = useState([]);
@@ -24,7 +25,7 @@ const ExpenseContainerFullScreen = () => {
 
     setIsLoading(true);
 
-    fetch("https://moneymate-2fsn.onrender.com/api/v1/user/getAllExpence", {
+    fetch(`${API_BASE_URL}/getAllExpence`, {
       method: "GET",
       credentials: "include",
       headers: {
@@ -62,7 +63,7 @@ const ExpenseContainerFullScreen = () => {
 
     const accessToken = localStorage.getItem("accessToken");
 
-    fetch("https://moneymate-2fsn.onrender.com/api/v1/user/expence", {
+    fetch(`${API_BASE_URL}/expence`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -91,7 +92,7 @@ const ExpenseContainerFullScreen = () => {
   const handleDelete = (id) => {
     const accessToken = localStorage.getItem("accessToken");
 
-    fetch(`https://moneymate-2fsn.onrender.com/api/v1/user/deleteExpence/${id}`, {
+    fetch(`${API_BASE_URL}/deleteExpence/${id}`, {
       method: "POST",
       credentials: "include",
       headers: {
