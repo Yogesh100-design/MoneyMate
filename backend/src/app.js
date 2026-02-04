@@ -31,14 +31,13 @@ app.use((req, res, next) => {
   next();
 });
 
-// Middleware
 app.use(express.json());
 app.use(cookieParser());
 
-// Routes
+
 app.use("/api/v1/user", userRouter);
 
-// Test route
+
 app.get("/", (req, res) => {
   res.send("Server is running ✅");
 });
